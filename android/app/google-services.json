@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "948249377652",
+    "project_id": "gdg-braynr",
+    "storage_bucket": "gdg-braynr.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948249377652:android:7027b441134e8b29ed4a21",
+        "android_client_info": {
+          "package_name": "com.example.gdg_braynr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJuzOykSyQX77U3J1lWibcu2NkYrxVufs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
