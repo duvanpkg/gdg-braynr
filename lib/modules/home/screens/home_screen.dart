@@ -47,6 +47,14 @@ class HomeScreen extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Text(
+                'What do you want to focus on today?',
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      color: const Color(0xFFFFFFFF),
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 40),
               Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

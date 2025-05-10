@@ -19,7 +19,17 @@ class CardWidget extends StatelessWidget {
     return Container(
         height: 200,
         width: 380,
-        color: color,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 8,
+              offset: Offset(0, 4),
+            ),
+          ],
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -46,6 +56,5 @@ class CardWidget extends StatelessWidget {
             ),
           ],
         ));
-    //add spacing between the containers
   }
 }
