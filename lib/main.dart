@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:gdg_braynr/modules/home/screens/home_screen.dart';
+import 'package:gdg_braynr/global/theme/app_theme.dart';
 import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:gdg_braynr/global/middlewares/auth_middleware.dart';
 
 Future<void> main() async {
   runApp(const MyApp());
@@ -18,12 +19,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Braynr',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.normalTheme,
       debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+      home: const AuthMiddleware(),
     );
   }
 }
