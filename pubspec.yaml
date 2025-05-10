@@ -61,6 +61,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/icons/
+    - assets/images/pingu/
 
 #icon app
 flutter_launcher_icons:
