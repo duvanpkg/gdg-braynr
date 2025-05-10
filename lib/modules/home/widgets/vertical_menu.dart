@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdg_braynr/global/theme/app_theme.dart';
+import 'package:gdg_braynr/modules/home/widgets/music_player.dart';
 
 class VerticalMenu extends StatefulWidget {
   const VerticalMenu({super.key});
@@ -64,7 +65,7 @@ class _VerticalMenuState extends State<VerticalMenu>
       curve: Curves.easeInOut,
       color: primaryColor50,
       padding: const EdgeInsets.all(8.0),
-      width: _isExpanded ? 180 : 65,
+      width: _isExpanded ? 270 : 65,
       child: Column(
         children: [
           // Hamburger menu icon
@@ -196,30 +197,21 @@ class _VerticalMenuState extends State<VerticalMenu>
             ),
           ),
           const SizedBox(height: 10),
-          Container(
-            padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: const Color(0xFF717171),
-              borderRadius: BorderRadius.circular(10),
+          if (!_isExpanded)
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: const Color(0xFF717171),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.graphic_eq, color: Colors.white, size: 30),
+                ],
+              ),
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.graphic_eq, color: Colors.white, size: 30),
-                if (_isExpanded)
-                  const Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        'MUSIC XD',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ),
-              ],
-            ),
-          ),
+          if (_isExpanded) const MusicPlayer(),
           const SizedBox(height: 10),
           Container(
             padding: const EdgeInsets.all(8.0),
