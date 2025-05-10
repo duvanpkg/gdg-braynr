@@ -29,12 +29,12 @@ class HomeScreen extends StatelessWidget {
     Icons.auto_graph,
   ];
   static const colors = [
-    Color(0xFFDEDA9A),
-    Color(0xFFA9B6D2),
-    Color(0xFFF4AAAA),
-    Color(0xFF86C097),
-    Color(0xFFC384BE),
-    Color(0xFFE49D76),
+    Color(0xFFF94144),
+    Color(0xFF90BE6D),
+    Color(0xFFF3722C),
+    Color(0xFF43AA8B),
+    Color(0xFFC361BB),
+    Color(0xFF577590),
   ];
 
   @override
