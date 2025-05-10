@@ -65,7 +65,7 @@ class _VerticalMenuState extends State<VerticalMenu>
       curve: Curves.easeInOut,
       color: primaryColor50,
       padding: const EdgeInsets.all(8.0),
-      width: _isExpanded ? 570 : 65,
+      width: _isExpanded ? 270 : 65,
       child: Column(
         children: [
           // Hamburger menu icon
