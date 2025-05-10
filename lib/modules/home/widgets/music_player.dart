@@ -141,24 +141,6 @@ class _MusicPlayerState extends State<MusicPlayer> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Title
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey[800],
-              borderRadius: BorderRadius.circular(20),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: Text(
-              _streamLabels[_selectedStreamIndex] ?? 'Music',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-
           // Stream selection buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -209,21 +191,6 @@ class _MusicPlayerState extends State<MusicPlayer> {
         ],
       ),
     );
-  }
-
-  String _getMainImageAsset() {
-    switch (_selectedStreamIndex) {
-      case 0:
-        return 'assets/images/rain_theme.jpg';
-      case 1:
-        return 'assets/images/electronic_theme.jpg';
-      case 2:
-        return 'assets/images/nature_theme.jpg';
-      case 3:
-        return 'assets/images/lofi_theme.jpg';
-      default:
-        return 'assets/images/lofi_theme.jpg';
-    }
   }
 
   Widget _buildStreamSelector(int index) {
