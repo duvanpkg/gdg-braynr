@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdg_braynr/global/theme/app_theme.dart';
+import 'package:gdg_braynr/global/widgets/floating_modal_controller.dart';
 import 'package:gdg_braynr/modules/home/widgets/music_player.dart';
 
 class VerticalMenu extends StatefulWidget {
@@ -31,6 +32,7 @@ class _VerticalMenuState extends State<VerticalMenu>
     with SingleTickerProviderStateMixin {
   bool _isExpanded = false;
   late AnimationController _animationController;
+  final FloatingModalController _modalController = FloatingModalController();
 
   @override
   void initState() {
@@ -56,6 +58,17 @@ class _VerticalMenuState extends State<VerticalMenu>
         _animationController.reverse();
       }
     });
+  }
+
+  void _showMusicPlayerModal(BuildContext context) {
+    _modalController.showFloatingModal(
+      context,
+      const MusicPlayer(),
+      position: Offset(
+        MediaQuery.of(context).size.width * 0.05, // 5% from left edge
+        MediaQuery.of(context).size.height * 0.6, // 60% from top edge
+      ),
+    );
   }
 
   @override
@@ -197,48 +210,65 @@ class _VerticalMenuState extends State<VerticalMenu>
             ),
           ),
           const SizedBox(height: 10),
-          if (!_isExpanded)
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: const Color(0xFF717171),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Row(
+          // Music player icon - now uses modal
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: const Color(0xFF717171),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: InkWell(
+              onTap: () => _showMusicPlayerModal(context),
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.graphic_eq, color: Colors.white, size: 30),
+                  const Icon(Icons.graphic_eq, color: Colors.white, size: 30),
+                  if (_isExpanded)
+                    const Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          'Music Player',
+                          style: TextStyle(color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
                 ],
               ),
             ),
-          if (_isExpanded) const MusicPlayer(),
+          ),
           const SizedBox(height: 10),
+          // DORO Icon - also shows music player modal for now
           Container(
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               color: greenAccent,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/images/doro_logo.png',
-                  height: 30,
-                  width: 30,
-                ),
-                if (_isExpanded)
-                  const Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        'DORO',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
+            child: InkWell(
+              onTap: () => _showMusicPlayerModal(context),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/images/doro_logo.png',
+                    height: 30,
+                    width: 30,
+                  ),
+                  if (_isExpanded)
+                    const Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          'DORO',
+                          style: TextStyle(color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
