@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gdg_braynr/modules/home/screens/card_widget.dart';
+import 'package:gdg_braynr/modules/home/widgets/card_widget.dart';
 import 'package:gdg_braynr/modules/home/widgets/vertical_menu.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -59,32 +59,36 @@ class HomeScreen extends StatelessWidget {
                         ),
                   ),
                   const SizedBox(height: 40),
-                  Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Row(
+                  Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        for (int i = 0; i < 3; i++) ...[
-                          CardWidget(
-                              title: titles[i],
-                              description: descriptions[i],
-                              icon: icons[i],
-                              color: colors[i]),
-                          const SizedBox(width: 20),
-                        ],
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      for (int i = 3; i < 6; i++) ...[
-                        CardWidget(
-                            title: titles[i],
-                            description: descriptions[i],
-                            icon: icons[i],
-                            color: colors[i]),
-                        const SizedBox(width: 20),
-                      ],
-                    ]),
-                  ]),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            for (int i = 0; i < 3; i++) ...[
+                              CardWidget(
+                                  title: titles[i],
+                                  description: descriptions[i],
+                                  icon: icons[i],
+                                  color: colors[i]),
+                              const SizedBox(width: 20),
+                            ],
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              for (int i = 3; i < 6; i++) ...[
+                                CardWidget(
+                                    title: titles[i],
+                                    description: descriptions[i],
+                                    icon: icons[i],
+                                    color: colors[i]),
+                                const SizedBox(width: 20),
+                              ],
+                            ]),
+                      ]),
                 ],
               ),
             ),
