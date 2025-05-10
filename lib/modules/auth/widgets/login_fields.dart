@@ -20,7 +20,6 @@ class LoginFields extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.60,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
-                // Borde simplificado
                 border: Border.all(
                   color: Colors.white,
                   width: 0.3,
@@ -28,8 +27,7 @@ class LoginFields extends StatelessWidget {
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Colors.grey, blackAccent, blackAccent],
-                  stops: [0.1, 0.6, 1.0],
+                  colors: [Color(0xFF999999), blackAccent],
                 ),
               ),
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
