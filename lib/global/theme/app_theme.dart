@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // Primary colors
 const Color primaryColor = Colors.lightBlue;
-const Color primaryColor50 = Color(0xFFecfeff);
+const Color primaryColor50 = Color(0xFF2F2F2F);
 const Color primaryColor100 = Color(0xFFd0f9fd);
 const Color primaryColor200 = Color(0xFFa6f3fb);
 const Color primaryColor300 = Color(0xFF69e7f7);
