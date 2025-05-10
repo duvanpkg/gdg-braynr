@@ -46,44 +46,53 @@ class HomeScreen extends StatelessWidget {
           children: [
             const VerticalMenu(),
             const SizedBox(width: 20),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'What do you want to focus on today?',
-                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        color: const Color(0xFFFFFFFF),
-                        fontWeight: FontWeight.bold,
-                      ),
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'What do you want to focus on today?',
+                      style:
+                          Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                color: const Color(0xFFFFFFFF),
+                                fontWeight: FontWeight.bold,
+                              ),
+                    ),
+                    const SizedBox(height: 40),
+                    Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              for (int i = 0; i < 3; i++) ...[
+                                CardWidget(
+                                    title: titles[i],
+                                    description: descriptions[i],
+                                    icon: icons[i],
+                                    color: colors[i]),
+                                const SizedBox(width: 20),
+                              ],
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                for (int i = 3; i < 6; i++) ...[
+                                  CardWidget(
+                                      title: titles[i],
+                                      description: descriptions[i],
+                                      icon: icons[i],
+                                      color: colors[i]),
+                                  const SizedBox(width: 20),
+                                ],
+                              ]),
+                        ]),
+                  ],
                 ),
-                const SizedBox(height: 40),
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      for (int i = 0; i < 3; i++) ...[
-                        CardWidget(
-                            title: titles[i],
-                            description: descriptions[i],
-                            icon: icons[i],
-                            color: colors[i]),
-                        const SizedBox(width: 20),
-                      ],
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    for (int i = 3; i < 6; i++) ...[
-                      CardWidget(
-                          title: titles[i],
-                          description: descriptions[i],
-                          icon: icons[i],
-                          color: colors[i]),
-                      const SizedBox(width: 20),
-                    ],
-                  ]),
-                ]),
-              ],
+              ),
             ),
           ],
         ),
