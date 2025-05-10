@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 
@@ -11,15 +12,22 @@ class MusicPlayer extends StatefulWidget {
 class _MusicPlayerState extends State<MusicPlayer> {
   final AudioPlayer _audioPlayer = AudioPlayer();
   bool _isPlaying = false;
+  bool _isLoading = false;
   double _volume = 0.7; // Default volume level
-  final String _audioUrl =
-      'https://live.proradiosonline.com/listen/lofi_radio/aac';
+
+  // URL alternativas para diferentes plataformas
+  static const String _aacStreamUrl = 'https://tupanel.info:8000/stream?sid=1';
+
+  // Definirá la URL basada en la plataforma
+  late String _audioUrl;
 
   @override
   void initState() {
     super.initState();
     _setupAudioPlayer();
-    _audioPlayer.setVolume(_volume); // Set initial volume
+    _audioPlayer.setVolume(_volume);
+
+    _audioUrl = _aacStreamUrl;
   }
 
   void _setupAudioPlayer() {
@@ -28,6 +36,9 @@ class _MusicPlayerState extends State<MusicPlayer> {
       if (mounted) {
         setState(() {
           _isPlaying = state == PlayerState.playing;
+          if (state == PlayerState.playing) {
+            _isLoading = false;
+          }
         });
       }
     });
@@ -37,6 +48,7 @@ class _MusicPlayerState extends State<MusicPlayer> {
       if (mounted) {
         setState(() {
           _isPlaying = false;
+          _isLoading = false;
         });
       }
     });
@@ -44,15 +56,38 @@ class _MusicPlayerState extends State<MusicPlayer> {
 
   Future<void> _playPause() async {
     try {
+      setState(() {
+        _isLoading = true;
+      });
+
       if (_isPlaying) {
         await _audioPlayer.pause();
+        setState(() {
+          _isLoading = false;
+        });
       } else {
+        // Configurar opciones específicas para iOS/macOS
+        if (Platform.isIOS || Platform.isMacOS) {
+          await _audioPlayer.setReleaseMode(ReleaseMode.release);
+        }
+
         await _audioPlayer.play(UrlSource(_audioUrl));
       }
     } catch (e) {
       if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${e.toString()}')),
+          SnackBar(
+            content: Text('Error al reproducir: ${e.toString()}'),
+            duration: const Duration(seconds: 5),
+            action: SnackBarAction(
+              label: 'Reintentar',
+              onPressed: _playPause,
+            ),
+          ),
         );
       }
     }
@@ -151,16 +186,25 @@ class _MusicPlayerState extends State<MusicPlayer> {
                 ),
               ),
               // Play/Pause button
-              IconButton(
-                icon: Icon(
-                  _isPlaying
-                      ? Icons.pause_circle_filled
-                      : Icons.play_circle_filled,
-                  size: 42,
-                  color: Colors.blue.shade700,
-                ),
-                onPressed: _playPause,
-              ),
+              _isLoading
+                  ? SizedBox(
+                      width: 42,
+                      height: 42,
+                      child: CircularProgressIndicator(
+                        color: Colors.blue.shade700,
+                        strokeWidth: 3,
+                      ),
+                    )
+                  : IconButton(
+                      icon: Icon(
+                        _isPlaying
+                            ? Icons.pause_circle_filled
+                            : Icons.play_circle_filled,
+                        size: 42,
+                        color: Colors.blue.shade700,
+                      ),
+                      onPressed: _playPause,
+                    ),
             ],
           ),
         ],
