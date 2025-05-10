@@ -1,4 +1,6 @@
 PODS:
+  - audioplayers_darwin (0.0.1):
+    - FlutterMacOS
   - Firebase/CoreOnly (11.10.0):
     - FirebaseCore (~> 11.10.0)
   - firebase_core (3.13.0):
@@ -19,10 +21,15 @@ PODS:
   - "GoogleUtilities/NSData+zlib (8.1.0)":
     - GoogleUtilities/Privacy
   - GoogleUtilities/Privacy (8.1.0)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
 
 DEPENDENCIES:
+  - audioplayers_darwin (from `Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos`)
   - firebase_core (from `Flutter/ephemeral/.symlinks/plugins/firebase_core/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
+  - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
 
 SPEC REPOS:
   trunk:
@@ -32,18 +39,24 @@ SPEC REPOS:
     - GoogleUtilities
 
 EXTERNAL SOURCES:
+  audioplayers_darwin:
+    :path: Flutter/ephemeral/.symlinks/plugins/audioplayers_darwin/macos
   firebase_core:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_core/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
+  path_provider_foundation:
+    :path: Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin
 
 SPEC CHECKSUMS:
+  audioplayers_darwin: 761f2948df701d05b5db603220c384fb55720012
   Firebase: 1fe1c0a7d9aaea32efe01fbea5f0ebd8d70e53a2
   firebase_core: efd50ad8177dc489af1b9163a560359cf1b30597
   FirebaseCore: 8344daef5e2661eb004b177488d6f9f0f24251b7
   FirebaseCoreInternal: ef4505d2afb1d0ebbc33162cb3795382904b5679
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
+  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
 
 PODFILE CHECKSUM: ee954fade8f3b11c1f8b26bea93380ea85316f08
 

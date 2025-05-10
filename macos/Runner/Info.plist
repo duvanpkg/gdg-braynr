@@ -28,5 +28,14 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<!-- Network permissions for macOS -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<!-- For macOS audio background playback -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Not used, but required for iOS audio plugin registration</string>
 </dict>
 </plist>
