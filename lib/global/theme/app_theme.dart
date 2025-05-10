@@ -21,7 +21,7 @@ const Color greyLight = Color(0xFFC4C4C4);
 const Color mintAccent = Color(0xFF6dc8c2);
 const Color yellowAccent = Color(0xFFffbb45);
 const Color redAccent = Color(0xFFf74048);
-const Color greenAccent = Color(0xFF4CD964);
+const Color greenAccent = Color(0xFF71FF7A);
 const Color violetAccent = Color(0xFF390D97);
 const Color blackAccent = Color(0xFF1B1B1B);
 

@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
     'Resource library',
     'Diagram',
   ];
+
   static const descriptions = [
     'Write your thoughts and ideas',
     'Study and learn new things',
