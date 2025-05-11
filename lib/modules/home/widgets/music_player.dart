@@ -195,20 +195,8 @@ class _MusicPlayerState extends State<MusicPlayer> {
 
   Widget _buildStreamSelector(int index) {
     bool isSelected = _selectedStreamIndex == index;
-    String imageAsset;
 
     // Use placeholder images for now
-    switch (index) {
-      case 0:
-        imageAsset = 'assets/images/icons/electronic.png';
-        break;
-      case 1:
-        imageAsset = 'assets/images/icons/lofi.png';
-        break;
-      default:
-        imageAsset = 'assets/images/icons/lofi.png';
-        break;
-    }
 
     return GestureDetector(
       onTap: () => _selectStream(index),

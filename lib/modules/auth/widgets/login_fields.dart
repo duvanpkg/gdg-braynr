@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gdg_braynr/global/theme/app_theme.dart';
 import 'package:gdg_braynr/global/widgets/custom_fields.dart';
 import 'package:gdg_braynr/modules/home/screens/dashboard_container.dart';
-import 'package:gdg_braynr/modules/home/screens/home_screen.dart';
 
 class LoginFields extends StatelessWidget {
   const LoginFields({super.key});
