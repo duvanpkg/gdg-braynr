@@ -64,6 +64,14 @@ flutter:
     - assets/images/icons/
     - assets/images/pingu/
 
+  # To add custom fonts to your application, add a fonts section here,
+  fonts:
+    - family: Funnel_Display
+      fonts:
+        - asset: assets/fonts/FunnelDisplay-Regular.ttf
+        - asset: assets/fonts/FunnelDisplay-Bold.ttf
+          weight: 700
+
 #icon app
 flutter_launcher_icons:
   android: true
@@ -95,13 +103,6 @@ flutter_launcher_icons:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: Funnel_Display
-      fonts:
-        - asset: assets/fonts/FunnelDisplay-Regular.ttf
-        - asset: assets/fonts/FunnelDisplay-Bold.ttf
-          weight: 700
-
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
