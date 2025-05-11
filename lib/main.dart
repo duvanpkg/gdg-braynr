@@ -122,7 +122,10 @@ class _PinguWidgetState extends State<PinguWidget> {
           ),
         GestureDetector(
           onTap: () async {
-            final response = await PinguService().pinguCall();
+            final response = await PinguService().pinguCall(
+              content: 'home screen',
+              prompt: 'What do you think about this app?',
+            );
 
             print('Pingu response: $response');
 
