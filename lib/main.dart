@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gdg_braynr/global/middlewares/auth_middleware.dart';
 import 'package:gdg_braynr/global/theme/app_theme.dart';
 import 'package:gdg_braynr/global/widgets/floating_modal_controller.dart';
+import 'package:gdg_braynr/modules/auth/screens/login_screen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       title: 'Braynr',
       theme: AppTheme.normalTheme,
       debugShowCheckedModeBanner: false,
-      home: const AuthMiddleware(),
+      home: const LoginScreen(),
       // Use the overlay key from the controller
       builder: (context, child) {
         return Overlay(

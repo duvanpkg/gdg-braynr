@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gdg_braynr/modules/auth/screens/login_screen.dart';
-import 'package:gdg_braynr/modules/home/screens/home_screen.dart';
+import 'package:gdg_braynr/modules/home/screens/dashboard_container.dart';
 
 class AuthMiddleware extends StatefulWidget {
   const AuthMiddleware({super.key});
@@ -10,6 +10,8 @@ class AuthMiddleware extends StatefulWidget {
 }
 
 class _AuthMiddlewareState extends State<AuthMiddleware> {
+  bool isLoggedIn = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +34,7 @@ class _AuthMiddlewareState extends State<AuthMiddleware> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const HomeScreen(),
+                      builder: (context) => const DashboardContainer(),
                     ),
                   );
                 },

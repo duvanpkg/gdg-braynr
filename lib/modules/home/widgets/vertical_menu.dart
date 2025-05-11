@@ -4,7 +4,14 @@ import 'package:gdg_braynr/global/widgets/floating_modal_controller.dart';
 import 'package:gdg_braynr/modules/home/widgets/music_player.dart';
 
 class VerticalMenu extends StatefulWidget {
-  const VerticalMenu({super.key});
+  final int selectedIndex;
+  final Function(int) onItemTapped;
+
+  const VerticalMenu({
+    super.key,
+    this.selectedIndex = 0,
+    required this.onItemTapped,
+  });
 
   static const icons = [
     Icons.edit,
@@ -73,6 +80,12 @@ class _VerticalMenuState extends State<VerticalMenu>
 
   @override
   Widget build(BuildContext context) {
+    // Define constants for our menu indexes
+    const int homeIndex = 0;
+    const int chatIndex = 7; // After the 6 dynamic items
+    const int musicIndex = 8;
+    const int doroIndex = 9;
+
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
@@ -116,32 +129,46 @@ class _VerticalMenuState extends State<VerticalMenu>
           ),
           const SizedBox(height: 10),
           // Home icon
-          Container(
-            padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: const Color(0xFF717171),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/images/icons/Home.png',
-                  height: 30,
-                  width: 30,
-                ),
-                if (_isExpanded)
-                  const Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        'Home',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
+          GestureDetector(
+            onTap: () {
+              widget.onItemTapped(homeIndex);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: const Color(0xFF717171),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: widget.selectedIndex == homeIndex
+                    ? [
+                        BoxShadow(
+                          color: Colors.white.withOpacity(0.7),
+                          blurRadius: 12,
+                          spreadRadius: 2,
+                        )
+                      ]
+                    : null,
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/images/icons/Home.png',
+                    height: 30,
+                    width: 30,
+                  ),
+                  if (_isExpanded)
+                    const Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          'Home',
+                          style: TextStyle(color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
           const Divider(
@@ -152,73 +179,120 @@ class _VerticalMenuState extends State<VerticalMenu>
             child: ListView.builder(
               itemCount: VerticalMenu.icons.length,
               itemBuilder: (context, index) {
+                // Adjust index to start after Home (index 0)
+                final int actualIndex = index + 1;
+                final bool isSelected = widget.selectedIndex == actualIndex;
+
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 10),
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                      color: VerticalMenu.colors[index],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(VerticalMenu.icons[index],
-                            color: Colors.white, size: 30),
-                        if (_isExpanded)
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Text(
-                                _getMenuItemName(index),
-                                style: const TextStyle(color: Colors.white),
-                                overflow: TextOverflow.ellipsis,
+                  child: InkWell(
+                    onTap: () => widget.onItemTapped(actualIndex),
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        color: VerticalMenu.colors[index],
+                        borderRadius: BorderRadius.circular(10),
+                        // Add a subtle glow effect when selected
+                        boxShadow: isSelected
+                            ? [
+                                BoxShadow(
+                                  color: VerticalMenu.colors[index]
+                                      .withOpacity(0.7),
+                                  blurRadius: 12,
+                                  spreadRadius: 2,
+                                )
+                              ]
+                            : null,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(VerticalMenu.icons[index],
+                              color: Colors.white, size: 30),
+                          if (_isExpanded)
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  _getMenuItemName(index),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: isSelected
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );
               },
             ),
           ),
-          // Below icons
+          // Chat icon
           Container(
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               color: const Color(0xFF717171),
               borderRadius: BorderRadius.circular(10),
+              boxShadow: widget.selectedIndex == chatIndex
+                  ? [
+                      BoxShadow(
+                        color: Colors.white.withOpacity(0.7),
+                        blurRadius: 12,
+                        spreadRadius: 2,
+                      )
+                    ]
+                  : null,
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.chat_bubble_rounded,
-                    color: Colors.white, size: 30),
-                if (_isExpanded)
-                  const Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        'Chats',
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
+            child: InkWell(
+              onTap: () => widget.onItemTapped(chatIndex),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.chat_bubble_rounded,
+                      color: Colors.white, size: 30),
+                  if (_isExpanded)
+                    const Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          'Chats',
+                          style: TextStyle(color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 10),
-          // Music player icon - now uses modal
+          // Music player icon
           Container(
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               color: const Color(0xFF717171),
               borderRadius: BorderRadius.circular(10),
+              boxShadow: widget.selectedIndex == musicIndex
+                  ? [
+                      BoxShadow(
+                        color: Colors.white.withOpacity(0.7),
+                        blurRadius: 12,
+                        spreadRadius: 2,
+                      )
+                    ]
+                  : null,
             ),
             child: InkWell(
-              onTap: () => _showMusicPlayerModal(context),
+              onTap: () {
+                _showMusicPlayerModal(context);
+                widget.onItemTapped(musicIndex);
+              },
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -239,15 +313,27 @@ class _VerticalMenuState extends State<VerticalMenu>
             ),
           ),
           const SizedBox(height: 10),
-          // DORO Icon - also shows music player modal for now
+          // DORO Icon
           Container(
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               color: greenAccent,
               borderRadius: BorderRadius.circular(10),
+              boxShadow: widget.selectedIndex == doroIndex
+                  ? [
+                      BoxShadow(
+                        color: greenAccent.withOpacity(0.7),
+                        blurRadius: 12,
+                        spreadRadius: 2,
+                      )
+                    ]
+                  : null,
             ),
             child: InkWell(
-              onTap: () => _showMusicPlayerModal(context),
+              onTap: () {
+                _showMusicPlayerModal(context);
+                widget.onItemTapped(doroIndex);
+              },
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

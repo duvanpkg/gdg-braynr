@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gdg_braynr/modules/home/widgets/card_widget.dart';
-import 'package:gdg_braynr/modules/home/widgets/vertical_menu.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -41,59 +40,52 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Row(
-          children: [
-            const VerticalMenu(),
-            const SizedBox(width: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 40),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    'What do you want to focus on today?',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: const Color(0xFFFFFFFF),
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                  const SizedBox(height: 40),
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            for (int i = 0; i < 3; i++) ...[
-                              CardWidget(
-                                  title: titles[i],
-                                  description: descriptions[i],
-                                  icon: icons[i],
-                                  color: colors[i]),
-                              const SizedBox(width: 20),
-                            ],
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              for (int i = 3; i < 6; i++) ...[
-                                CardWidget(
-                                    title: titles[i],
-                                    description: descriptions[i],
-                                    icon: icons[i],
-                                    color: colors[i]),
-                                const SizedBox(width: 20),
-                              ],
-                            ]),
-                      ]),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'What do you want to focus on today?',
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  color: const Color(0xFFFFFFFF),
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+          const SizedBox(height: 40),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (int i = 0; i < 3; i++) ...[
+                    CardWidget(
+                        title: titles[i],
+                        description: descriptions[i],
+                        icon: icons[i],
+                        color: colors[i]),
+                    const SizedBox(width: 20),
+                  ],
                 ],
               ),
-            ),
-          ],
-        ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (int i = 3; i < 6; i++) ...[
+                    CardWidget(
+                        title: titles[i],
+                        description: descriptions[i],
+                        icon: icons[i],
+                        color: colors[i]),
+                    const SizedBox(width: 20),
+                  ],
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
