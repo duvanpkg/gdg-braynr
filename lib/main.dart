@@ -124,7 +124,8 @@ class _PinguWidgetState extends State<PinguWidget> {
           onTap: () async {
             final response = await PinguService().pinguCall(
               content: 'home screen',
-              prompt: 'What do you think about this app?',
+              prompt:
+                  'help me study, but give me short answers and talk like I havent asked like it was your decision to talks',
             );
 
             print('Pingu response: $response');
