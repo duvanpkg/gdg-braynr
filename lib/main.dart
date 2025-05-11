@@ -5,6 +5,7 @@ import 'package:gdg_braynr/global/widgets/floating_modal_controller.dart';
 import 'package:gdg_braynr/modules/auth/screens/login_screen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'dart:async';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,6 +63,25 @@ class PinguWidget extends StatefulWidget {
 
 class _PinguWidgetState extends State<PinguWidget> {
   String? pinguResponse;
+  Timer? _autoCloseTimer;
+  bool _isLoading = false; // Add this loading state variable
+
+  @override
+  void dispose() {
+    _autoCloseTimer?.cancel();
+    super.dispose();
+  }
+
+  void _startAutoCloseTimer() {
+    _autoCloseTimer?.cancel();
+    _autoCloseTimer = Timer(const Duration(seconds: 30), () {
+      if (mounted) {
+        setState(() {
+          pinguResponse = null;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,18 +115,41 @@ class _PinguWidgetState extends State<PinguWidget> {
                     ),
                   ],
                 ),
-                child: Text(
-                  'Pingu says: ${pinguResponse!}',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Funnel_Display',
-                    color: primaryColor50,
-                    fontWeight: FontWeight.w400,
-                    backgroundColor: Colors.transparent,
-                    decoration: TextDecoration.none,
-                  ),
-                  maxLines: null,
-                  overflow: TextOverflow.visible,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              pinguResponse = null;
+                            });
+                            _autoCloseTimer?.cancel();
+                          },
+                          child: const Icon(
+                            Icons.close,
+                            size: 16,
+                            color: primaryColor50,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      pinguResponse!,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Funnel_Display',
+                        color: primaryColor50,
+                        fontWeight: FontWeight.w400,
+                        backgroundColor: Colors.transparent,
+                        decoration: TextDecoration.none,
+                      ),
+                      maxLines: null,
+                      overflow: TextOverflow.visible,
+                    ),
+                  ],
                 ),
               ),
               // Triangle pointer
@@ -120,8 +163,34 @@ class _PinguWidgetState extends State<PinguWidget> {
               ),
             ],
           ),
+        // Show loading indicator if isLoading is true
+        if (_isLoading)
+          Container(
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 16, right: 60, left: 20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(primaryColor50),
+              strokeWidth: 3,
+            ),
+          ),
         GestureDetector(
           onTap: () async {
+            // Set loading to true before API call
+            setState(() {
+              _isLoading = true;
+            });
+
             final response = await PinguService().pinguCall(
               content: 'home screen',
               prompt:
@@ -130,10 +199,14 @@ class _PinguWidgetState extends State<PinguWidget> {
 
             print('Pingu response: $response');
 
+            // Update state with response and set loading to false
+            setState(() {
+              pinguResponse = response;
+              _isLoading = false;
+            });
+
             if (response != null) {
-              setState(() {
-                pinguResponse = response;
-              });
+              _startAutoCloseTimer();
             }
           },
           child: Image.asset(
