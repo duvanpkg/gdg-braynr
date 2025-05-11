@@ -53,40 +53,44 @@ class HomeScreen extends StatelessWidget {
                 ),
           ),
           const SizedBox(height: 40),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (int i = 0; i < 3; i++) ...[
-                    CardWidget(
-                        title: titles[i],
-                        description: descriptions[i],
-                        icon: icons[i],
-                        color: colors[i]),
-                    const SizedBox(width: 20),
-                  ],
-                ],
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (int i = 3; i < 6; i++) ...[
-                    CardWidget(
-                        title: titles[i],
-                        description: descriptions[i],
-                        icon: icons[i],
-                        color: colors[i]),
-                    const SizedBox(width: 20),
-                  ],
-                ],
-              ),
-            ],
+          LayoutBuilder(
+            builder: (context, constraints) {
+              return _buildResponsiveGrid(constraints.maxWidth);
+            },
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildResponsiveGrid(double width) {
+    // Determinamos cuántas tarjetas caben por fila según el ancho disponible
+    int cardsPerRow;
+    if (width < 600) {
+      cardsPerRow = 1; // Móvil: 1 tarjeta por fila
+    } else if (width < 900) {
+      cardsPerRow = 2; // Tablet: 2 tarjetas por fila
+    } else {
+      cardsPerRow = 3; // Desktop: 3 tarjetas por fila
+    }
+
+    return Wrap(
+      spacing: 20, // Espacio horizontal entre tarjetas
+      runSpacing: 20, // Espacio vertical entre filas
+      alignment: WrapAlignment.center,
+      children: List.generate(titles.length, (index) {
+        return SizedBox(
+          width: cardsPerRow == 1
+              ? double.infinity
+              : (width - (cardsPerRow - 1) * 20) / cardsPerRow,
+          child: CardWidget(
+            title: titles[index],
+            description: descriptions[index],
+            icon: icons[index],
+            color: colors[index],
+          ),
+        );
+      }),
     );
   }
 }
