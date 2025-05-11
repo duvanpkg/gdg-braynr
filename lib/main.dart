@@ -164,26 +164,26 @@ class _PinguWidgetState extends State<PinguWidget> {
             ],
           ),
         // Show loading indicator if isLoading is true
-        if (_isLoading)
-          Container(
-            padding: const EdgeInsets.all(12),
-            margin: const EdgeInsets.only(bottom: 16, right: 60, left: 20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(primaryColor50),
-              strokeWidth: 3,
-            ),
-          ),
+        // if (_isLoading)
+        //   Container(
+        //     padding: const EdgeInsets.all(12),
+        //     margin: const EdgeInsets.only(bottom: 16, right: 60, left: 20),
+        //     decoration: BoxDecoration(
+        //       color: Colors.white,
+        //       borderRadius: BorderRadius.circular(16),
+        //       boxShadow: [
+        //         BoxShadow(
+        //           color: Colors.black.withOpacity(0.1),
+        //           blurRadius: 10,
+        //           offset: const Offset(0, 4),
+        //         ),
+        //       ],
+        //     ),
+        //     child: const CircularProgressIndicator(
+        //       valueColor: AlwaysStoppedAnimation<Color>(primaryColor50),
+        //       strokeWidth: 3,
+        //     ),
+        //   ),
         GestureDetector(
           onTap: () async {
             // Set loading to true before API call
@@ -209,11 +209,17 @@ class _PinguWidgetState extends State<PinguWidget> {
               _startAutoCloseTimer();
             }
           },
-          child: Image.asset(
-            'assets/images/pingu/pingu.gif',
-            width: 130,
-            height: 130,
-          ),
+          child: _isLoading
+              ? Image.asset(
+                  'assets/images/pingu/pengu_loading.gif',
+                  width: 130,
+                  height: 130,
+                )
+              : Image.asset(
+                  'assets/images/pingu/pingu.gif',
+                  width: 130,
+                  height: 130,
+                ),
         ),
       ],
     );
