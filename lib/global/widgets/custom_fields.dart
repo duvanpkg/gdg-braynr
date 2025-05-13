@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:gdg_braynr/global/theme/app_theme.dart';
 
 /// A custom text field widget that handles validation and error messages internally.
 ///
@@ -242,6 +243,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             textCapitalization: widget.isEmail
                 ? TextCapitalization.none
                 : widget.textCapitalization,
+            style: const TextStyle(color: primaryColor50),
             decoration: InputDecoration(
               hintText: widget.hintText,
               hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
@@ -262,6 +264,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         if (widget.isDropDown)
           DropdownButtonFormField<String>(
             value: _selectedItem,
+            style: const TextStyle(color: primaryColor50, fontSize: 14),
             decoration: InputDecoration(
               hintText: widget.hintText,
               hintStyle: const TextStyle(fontSize: 14, color: Colors.grey),
@@ -273,7 +276,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 ?.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value, style: const TextStyle(fontSize: 14)),
+                child: Text(value,
+                    style: const TextStyle(fontSize: 14, color: Colors.black)),
               );
             }).toList(),
             onChanged: (value) {
